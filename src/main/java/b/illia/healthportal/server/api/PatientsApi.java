@@ -8,9 +8,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import b.illia.healthportal.server.model.Patient;
-import b.illia.healthportal.server.model.PatientsList;
-import b.illia.healthportal.server.model.SavedPatient;
+import b.illia.healthportal.server.api.model.PatientDto;
+import b.illia.healthportal.server.api.model.PatientsListDto;
+import b.illia.healthportal.server.api.model.SavedPatientDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -40,7 +40,7 @@ public interface PatientsApi extends Api {
         tags = { "patients" },
         responses = {
             @ApiResponse(responseCode = "200", description = "A patient successfully added", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = SavedPatient.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = SavedPatientDto.class))
             }),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "401", description = "Unauthorized")
@@ -55,8 +55,8 @@ public interface PatientsApi extends Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<SavedPatient> addPatient(
-        @Parameter(name = "Patient", description = "", required = true) @Valid @RequestBody Patient patient
+    default ResponseEntity<SavedPatientDto> addPatient(
+        @Parameter(name = "Patient", description = "", required = true) @Valid @RequestBody PatientDto patient
     ) {
         setExampleResponse("application/json", "null");
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -112,7 +112,7 @@ public interface PatientsApi extends Api {
         tags = { "patients" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Success", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = SavedPatient.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = SavedPatientDto.class))
             }),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
@@ -127,7 +127,7 @@ public interface PatientsApi extends Api {
         value = "/patients/{patientId}",
         produces = { "application/json" }
     )
-    default ResponseEntity<SavedPatient> getPatient(
+    default ResponseEntity<SavedPatientDto> getPatient(
         @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") Long patientId
     ) {
         setExampleResponse("application/json", "null");
@@ -152,7 +152,7 @@ public interface PatientsApi extends Api {
         tags = { "patients" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Success", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = PatientsList.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = PatientsListDto.class))
             }),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "401", description = "Unauthorized")
@@ -166,7 +166,7 @@ public interface PatientsApi extends Api {
         value = "/patients",
         produces = { "application/json" }
     )
-    default ResponseEntity<PatientsList> listPatients(
+    default ResponseEntity<PatientsListDto> listPatients(
         @Parameter(name = "offset", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "offset", required = false) Integer offset,
         @Parameter(name = "limit", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "limit", required = false) Integer limit,
         @Parameter(name = "q", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "q", required = false) String q
@@ -195,7 +195,7 @@ public interface PatientsApi extends Api {
         tags = { "patients" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Success", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = SavedPatient.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = SavedPatientDto.class))
             }),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
@@ -211,9 +211,9 @@ public interface PatientsApi extends Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<SavedPatient> updatePatient(
+    default ResponseEntity<SavedPatientDto> updatePatient(
         @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") Long patientId,
-        @Parameter(name = "Patient", description = "") @Valid @RequestBody(required = false) Patient patient
+        @Parameter(name = "Patient", description = "") @Valid @RequestBody(required = false) PatientDto patient
     ) {
         setExampleResponse("application/json", "null");
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);

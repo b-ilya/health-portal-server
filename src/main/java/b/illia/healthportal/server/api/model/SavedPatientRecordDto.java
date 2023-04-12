@@ -1,4 +1,4 @@
-package b.illia.healthportal.server.model;
+package b.illia.healthportal.server.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,7 +13,7 @@ import java.util.Objects;
  * SavedPatientRecord
  */
 
-public class SavedPatientRecord {
+public class SavedPatientRecordDto {
 
   private Long id;
 
@@ -35,17 +35,17 @@ public class SavedPatientRecord {
 
   /**
    * Default constructor
-   * @deprecated Use {@link SavedPatientRecord#SavedPatientRecord(Long, String, OffsetDateTime, OffsetDateTime, Boolean, Long, String)}
+   * @deprecated Use {@link SavedPatientRecordDto#SavedPatientRecordDto(Long, String, OffsetDateTime, OffsetDateTime, Boolean, Long, String)}
    */
   @Deprecated
-  public SavedPatientRecord() {
+  public SavedPatientRecordDto() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public SavedPatientRecord(Long id, String author, OffsetDateTime created, OffsetDateTime modified, Boolean editEnabled, Long patientId, String content) {
+  public SavedPatientRecordDto(Long id, String author, OffsetDateTime created, OffsetDateTime modified, Boolean editEnabled, Long patientId, String content) {
     this.id = id;
     this.author = author;
     this.created = created;
@@ -55,7 +55,7 @@ public class SavedPatientRecord {
     this.content = content;
   }
 
-  public SavedPatientRecord id(Long id) {
+  public SavedPatientRecordDto id(Long id) {
     this.id = id;
     return this;
   }
@@ -75,7 +75,7 @@ public class SavedPatientRecord {
     this.id = id;
   }
 
-  public SavedPatientRecord author(String author) {
+  public SavedPatientRecordDto author(String author) {
     this.author = author;
     return this;
   }
@@ -95,7 +95,7 @@ public class SavedPatientRecord {
     this.author = author;
   }
 
-  public SavedPatientRecord created(OffsetDateTime created) {
+  public SavedPatientRecordDto created(OffsetDateTime created) {
     this.created = created;
     return this;
   }
@@ -115,7 +115,7 @@ public class SavedPatientRecord {
     this.created = created;
   }
 
-  public SavedPatientRecord modified(OffsetDateTime modified) {
+  public SavedPatientRecordDto modified(OffsetDateTime modified) {
     this.modified = modified;
     return this;
   }
@@ -135,7 +135,7 @@ public class SavedPatientRecord {
     this.modified = modified;
   }
 
-  public SavedPatientRecord editEnabled(Boolean editEnabled) {
+  public SavedPatientRecordDto editEnabled(Boolean editEnabled) {
     this.editEnabled = editEnabled;
     return this;
   }
@@ -155,7 +155,7 @@ public class SavedPatientRecord {
     this.editEnabled = editEnabled;
   }
 
-  public SavedPatientRecord patientId(Long patientId) {
+  public SavedPatientRecordDto patientId(Long patientId) {
     this.patientId = patientId;
     return this;
   }
@@ -175,7 +175,7 @@ public class SavedPatientRecord {
     this.patientId = patientId;
   }
 
-  public SavedPatientRecord summary(String summary) {
+  public SavedPatientRecordDto summary(String summary) {
     this.summary = summary;
     return this;
   }
@@ -195,7 +195,7 @@ public class SavedPatientRecord {
     this.summary = summary;
   }
 
-  public SavedPatientRecord content(String content) {
+  public SavedPatientRecordDto content(String content) {
     this.content = content;
     return this;
   }
@@ -223,7 +223,7 @@ public class SavedPatientRecord {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SavedPatientRecord savedPatientRecord = (SavedPatientRecord) o;
+    SavedPatientRecordDto savedPatientRecord = (SavedPatientRecordDto) o;
     return Objects.equals(this.id, savedPatientRecord.id) &&
         Objects.equals(this.author, savedPatientRecord.author) &&
         Objects.equals(this.created, savedPatientRecord.created) &&

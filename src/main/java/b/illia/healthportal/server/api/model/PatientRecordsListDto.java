@@ -1,4 +1,4 @@
-package b.illia.healthportal.server.model;
+package b.illia.healthportal.server.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * PatientsList
+ * PatientRecordsList
  */
 
-public class PatientsList {
+public class PatientRecordsListDto {
 
   private Integer totalCount;
 
@@ -25,28 +25,28 @@ public class PatientsList {
   private Boolean hasMore;
 
   @Valid
-  private List<@Valid SavedPatient> patients;
+  private List<@Valid SavedPatientRecordDto> records;
 
   /**
    * Default constructor
-   * @deprecated Use {@link PatientsList#PatientsList(Integer, Integer, Integer, Boolean)}
+   * @deprecated Use {@link PatientRecordsListDto#PatientRecordsListDto(Integer, Integer, Integer, Boolean)}
    */
   @Deprecated
-  public PatientsList() {
+  public PatientRecordsListDto() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public PatientsList(Integer totalCount, Integer count, Integer offset, Boolean hasMore) {
+  public PatientRecordsListDto(Integer totalCount, Integer count, Integer offset, Boolean hasMore) {
     this.totalCount = totalCount;
     this.count = count;
     this.offset = offset;
     this.hasMore = hasMore;
   }
 
-  public PatientsList totalCount(Integer totalCount) {
+  public PatientRecordsListDto totalCount(Integer totalCount) {
     this.totalCount = totalCount;
     return this;
   }
@@ -55,7 +55,7 @@ public class PatientsList {
    * Get totalCount
    * @return totalCount
   */
-  @NotNull
+  @NotNull 
   @Schema(name = "totalCount", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("totalCount")
   public Integer getTotalCount() {
@@ -66,7 +66,7 @@ public class PatientsList {
     this.totalCount = totalCount;
   }
 
-  public PatientsList count(Integer count) {
+  public PatientRecordsListDto count(Integer count) {
     this.count = count;
     return this;
   }
@@ -75,7 +75,7 @@ public class PatientsList {
    * Get count
    * @return count
   */
-  @NotNull 
+  @NotNull
   @Schema(name = "count", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("count")
   public Integer getCount() {
@@ -86,7 +86,7 @@ public class PatientsList {
     this.count = count;
   }
 
-  public PatientsList offset(Integer offset) {
+  public PatientRecordsListDto offset(Integer offset) {
     this.offset = offset;
     return this;
   }
@@ -106,7 +106,7 @@ public class PatientsList {
     this.offset = offset;
   }
 
-  public PatientsList hasMore(Boolean hasMore) {
+  public PatientRecordsListDto hasMore(Boolean hasMore) {
     this.hasMore = hasMore;
     return this;
   }
@@ -126,32 +126,32 @@ public class PatientsList {
     this.hasMore = hasMore;
   }
 
-  public PatientsList patients(List<@Valid SavedPatient> patients) {
-    this.patients = patients;
+  public PatientRecordsListDto records(List<@Valid SavedPatientRecordDto> records) {
+    this.records = records;
     return this;
   }
 
-  public PatientsList addPatientsItem(SavedPatient patientsItem) {
-    if (this.patients == null) {
-      this.patients = new ArrayList<>();
+  public PatientRecordsListDto addRecordsItem(SavedPatientRecordDto recordsItem) {
+    if (this.records == null) {
+      this.records = new ArrayList<>();
     }
-    this.patients.add(patientsItem);
+    this.records.add(recordsItem);
     return this;
   }
 
   /**
-   * Get patients
-   * @return patients
+   * Get records
+   * @return records
   */
   @Valid 
-  @Schema(name = "patients", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("patients")
-  public List<@Valid SavedPatient> getPatients() {
-    return patients;
+  @Schema(name = "records", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("records")
+  public List<@Valid SavedPatientRecordDto> getRecords() {
+    return records;
   }
 
-  public void setPatients(List<@Valid SavedPatient> patients) {
-    this.patients = patients;
+  public void setRecords(List<@Valid SavedPatientRecordDto> records) {
+    this.records = records;
   }
 
   @Override
@@ -162,28 +162,28 @@ public class PatientsList {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PatientsList patientsList = (PatientsList) o;
-    return Objects.equals(this.totalCount, patientsList.totalCount) &&
-        Objects.equals(this.count, patientsList.count) &&
-        Objects.equals(this.offset, patientsList.offset) &&
-        Objects.equals(this.hasMore, patientsList.hasMore) &&
-        Objects.equals(this.patients, patientsList.patients);
+    PatientRecordsListDto patientRecordsList = (PatientRecordsListDto) o;
+    return Objects.equals(this.totalCount, patientRecordsList.totalCount) &&
+        Objects.equals(this.count, patientRecordsList.count) &&
+        Objects.equals(this.offset, patientRecordsList.offset) &&
+        Objects.equals(this.hasMore, patientRecordsList.hasMore) &&
+        Objects.equals(this.records, patientRecordsList.records);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(totalCount, count, offset, hasMore, patients);
+    return Objects.hash(totalCount, count, offset, hasMore, records);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PatientsList {\n");
+    sb.append("class PatientRecordsList {\n");
     sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
     sb.append("    offset: ").append(toIndentedString(offset)).append("\n");
     sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
-    sb.append("    patients: ").append(toIndentedString(patients)).append("\n");
+    sb.append("    records: ").append(toIndentedString(records)).append("\n");
     sb.append("}");
     return sb.toString();
   }

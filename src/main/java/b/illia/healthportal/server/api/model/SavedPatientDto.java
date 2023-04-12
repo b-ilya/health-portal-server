@@ -1,4 +1,4 @@
-package b.illia.healthportal.server.model;
+package b.illia.healthportal.server.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -10,10 +10,11 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * Patient
+ * SavedPatient
  */
+public class SavedPatientDto {
 
-public class Patient {
+  private Long id;
 
   private String firstName;
 
@@ -24,21 +25,22 @@ public class Patient {
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private LocalDate birthDate;
 
-  private Address address;
+  private AddressDto address;
 
   /**
    * Default constructor
-   * @deprecated Use {@link Patient#Patient(String, String, SexEnum, LocalDate, Address)}
+   * @deprecated Use {@link SavedPatientDto#SavedPatientDto(Long, String, String, SexEnum, LocalDate, AddressDto)}
    */
   @Deprecated
-  public Patient() {
+  public SavedPatientDto() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public Patient(String firstName, String lastName, SexEnum sex, LocalDate birthDate, Address address) {
+  public SavedPatientDto(Long id, String firstName, String lastName, SexEnum sex, LocalDate birthDate, AddressDto address) {
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.sex = sex;
@@ -46,7 +48,27 @@ public class Patient {
     this.address = address;
   }
 
-  public Patient firstName(String firstName) {
+  public SavedPatientDto id(Long id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+  */
+  @NotNull
+  @Schema(name = "id", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("id")
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public SavedPatientDto firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -66,7 +88,7 @@ public class Patient {
     this.firstName = firstName;
   }
 
-  public Patient lastName(String lastName) {
+  public SavedPatientDto lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -75,7 +97,7 @@ public class Patient {
    * Get lastName
    * @return lastName
   */
-  @NotNull
+  @NotNull 
   @Schema(name = "lastName", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("lastName")
   public String getLastName() {
@@ -86,7 +108,7 @@ public class Patient {
     this.lastName = lastName;
   }
 
-  public Patient sex(SexEnum sex) {
+  public SavedPatientDto sex(SexEnum sex) {
     this.sex = sex;
     return this;
   }
@@ -106,7 +128,7 @@ public class Patient {
     this.sex = sex;
   }
 
-  public Patient birthDate(LocalDate birthDate) {
+  public SavedPatientDto birthDate(LocalDate birthDate) {
     this.birthDate = birthDate;
     return this;
   }
@@ -126,7 +148,7 @@ public class Patient {
     this.birthDate = birthDate;
   }
 
-  public Patient address(Address address) {
+  public SavedPatientDto address(AddressDto address) {
     this.address = address;
     return this;
   }
@@ -138,11 +160,11 @@ public class Patient {
   @NotNull @Valid 
   @Schema(name = "address", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("address")
-  public Address getAddress() {
+  public AddressDto getAddress() {
     return address;
   }
 
-  public void setAddress(Address address) {
+  public void setAddress(AddressDto address) {
     this.address = address;
   }
 
@@ -154,23 +176,25 @@ public class Patient {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Patient patient = (Patient) o;
-    return Objects.equals(this.firstName, patient.firstName) &&
-        Objects.equals(this.lastName, patient.lastName) &&
-        Objects.equals(this.sex, patient.sex) &&
-        Objects.equals(this.birthDate, patient.birthDate) &&
-        Objects.equals(this.address, patient.address);
+    SavedPatientDto savedPatient = (SavedPatientDto) o;
+    return Objects.equals(this.id, savedPatient.id) &&
+        Objects.equals(this.firstName, savedPatient.firstName) &&
+        Objects.equals(this.lastName, savedPatient.lastName) &&
+        Objects.equals(this.sex, savedPatient.sex) &&
+        Objects.equals(this.birthDate, savedPatient.birthDate) &&
+        Objects.equals(this.address, savedPatient.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(firstName, lastName, sex, birthDate, address);
+    return Objects.hash(id, firstName, lastName, sex, birthDate, address);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Patient {\n");
+    sb.append("class SavedPatient {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
     sb.append("    sex: ").append(toIndentedString(sex)).append("\n");

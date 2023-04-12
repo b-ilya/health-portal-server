@@ -1,4 +1,4 @@
-package b.illia.healthportal.server.model;
+package b.illia.healthportal.server.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -11,7 +11,7 @@ import java.util.Objects;
  * PatientRecord
  */
 
-public class PatientRecord {
+public class PatientRecordDto {
 
   private Long patientId;
 
@@ -21,22 +21,22 @@ public class PatientRecord {
 
   /**
    * Default constructor
-   * @deprecated Use {@link PatientRecord#PatientRecord(Long, String)}
+   * @deprecated Use {@link PatientRecordDto#PatientRecordDto(Long, String)}
    */
   @Deprecated
-  public PatientRecord() {
+  public PatientRecordDto() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public PatientRecord(Long patientId, String content) {
+  public PatientRecordDto(Long patientId, String content) {
     this.patientId = patientId;
     this.content = content;
   }
 
-  public PatientRecord patientId(Long patientId) {
+  public PatientRecordDto patientId(Long patientId) {
     this.patientId = patientId;
     return this;
   }
@@ -56,7 +56,7 @@ public class PatientRecord {
     this.patientId = patientId;
   }
 
-  public PatientRecord summary(String summary) {
+  public PatientRecordDto summary(String summary) {
     this.summary = summary;
     return this;
   }
@@ -76,7 +76,7 @@ public class PatientRecord {
     this.summary = summary;
   }
 
-  public PatientRecord content(String content) {
+  public PatientRecordDto content(String content) {
     this.content = content;
     return this;
   }
@@ -104,7 +104,7 @@ public class PatientRecord {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PatientRecord patientRecord = (PatientRecord) o;
+    PatientRecordDto patientRecord = (PatientRecordDto) o;
     return Objects.equals(this.patientId, patientRecord.patientId) &&
         Objects.equals(this.summary, patientRecord.summary) &&
         Objects.equals(this.content, patientRecord.content);

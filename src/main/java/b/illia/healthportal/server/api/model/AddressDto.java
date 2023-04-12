@@ -1,4 +1,4 @@
-package b.illia.healthportal.server.model;
+package b.illia.healthportal.server.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * Address
  */
-public class Address {
+public class AddressDto {
 
   private String streetAddress;
 
@@ -24,23 +24,23 @@ public class Address {
 
   /**
    * Default constructor
-   * @deprecated Use {@link Address#Address(String, String, String)}
+   * @deprecated Use {@link AddressDto#AddressDto(String, String, String)}
    */
   @Deprecated
-  public Address() {
+  public AddressDto() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public Address(String streetAddress, String city, String country) {
+  public AddressDto(String streetAddress, String city, String country) {
     this.streetAddress = streetAddress;
     this.city = city;
     this.country = country;
   }
 
-  public Address streetAddress(String streetAddress) {
+  public AddressDto streetAddress(String streetAddress) {
     this.streetAddress = streetAddress;
     return this;
   }
@@ -60,7 +60,7 @@ public class Address {
     this.streetAddress = streetAddress;
   }
 
-  public Address city(String city) {
+  public AddressDto city(String city) {
     this.city = city;
     return this;
   }
@@ -80,7 +80,7 @@ public class Address {
     this.city = city;
   }
 
-  public Address state(String state) {
+  public AddressDto state(String state) {
     this.state = state;
     return this;
   }
@@ -100,7 +100,7 @@ public class Address {
     this.state = state;
   }
 
-  public Address country(String country) {
+  public AddressDto country(String country) {
     this.country = country;
     return this;
   }
@@ -120,7 +120,7 @@ public class Address {
     this.country = country;
   }
 
-  public Address zip(String zip) {
+  public AddressDto zip(String zip) {
     this.zip = zip;
     return this;
   }
@@ -148,7 +148,7 @@ public class Address {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Address address = (Address) o;
+    AddressDto address = (AddressDto) o;
     return Objects.equals(this.streetAddress, address.streetAddress) &&
         Objects.equals(this.city, address.city) &&
         Objects.equals(this.state, address.state) &&

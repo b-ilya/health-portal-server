@@ -1,4 +1,4 @@
-package b.illia.healthportal.server.model;
+package b.illia.healthportal.server.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -8,12 +8,9 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * SavedUser
+ * User
  */
-
-public class SavedUser {
-
-  private Long id;
+public class UserDto {
 
   private String username;
 
@@ -27,45 +24,24 @@ public class SavedUser {
 
   /**
    * Default constructor
-   * @deprecated Use {@link SavedUser#SavedUser(Long, String, String, String, String)}
+   * @deprecated Use {@link UserDto#UserDto(String, String, String, String)}
    */
   @Deprecated
-  public SavedUser() {
+  public UserDto() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public SavedUser(Long id, String username, String firstName, String lastName, String email) {
-    this.id = id;
+  public UserDto(String username, String firstName, String lastName, String email) {
     this.username = username;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
   }
 
-  public SavedUser id(Long id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-  */
-  @NotNull
-  @Schema(name = "id", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("id")
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public SavedUser username(String username) {
+  public UserDto username(String username) {
     this.username = username;
     return this;
   }
@@ -74,7 +50,7 @@ public class SavedUser {
    * Get username
    * @return username
   */
-  @NotNull 
+  @NotNull
   @Schema(name = "username", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("username")
   public String getUsername() {
@@ -85,7 +61,7 @@ public class SavedUser {
     this.username = username;
   }
 
-  public SavedUser firstName(String firstName) {
+  public UserDto firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -105,7 +81,7 @@ public class SavedUser {
     this.firstName = firstName;
   }
 
-  public SavedUser lastName(String lastName) {
+  public UserDto lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -125,7 +101,7 @@ public class SavedUser {
     this.lastName = lastName;
   }
 
-  public SavedUser email(String email) {
+  public UserDto email(String email) {
     this.email = email;
     return this;
   }
@@ -145,7 +121,7 @@ public class SavedUser {
     this.email = email;
   }
 
-  public SavedUser superuser(Boolean superuser) {
+  public UserDto superuser(Boolean superuser) {
     this.superuser = superuser;
     return this;
   }
@@ -173,25 +149,23 @@ public class SavedUser {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SavedUser savedUser = (SavedUser) o;
-    return Objects.equals(this.id, savedUser.id) &&
-        Objects.equals(this.username, savedUser.username) &&
-        Objects.equals(this.firstName, savedUser.firstName) &&
-        Objects.equals(this.lastName, savedUser.lastName) &&
-        Objects.equals(this.email, savedUser.email) &&
-        Objects.equals(this.superuser, savedUser.superuser);
+    UserDto user = (UserDto) o;
+    return Objects.equals(this.username, user.username) &&
+        Objects.equals(this.firstName, user.firstName) &&
+        Objects.equals(this.lastName, user.lastName) &&
+        Objects.equals(this.email, user.email) &&
+        Objects.equals(this.superuser, user.superuser);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, firstName, lastName, email, superuser);
+    return Objects.hash(username, firstName, lastName, email, superuser);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SavedUser {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("class User {\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
