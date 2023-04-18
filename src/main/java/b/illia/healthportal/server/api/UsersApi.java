@@ -95,7 +95,7 @@ public interface UsersApi extends Api {
         produces = { "application/json" }
     )
     default ResponseEntity<SavedUserDto> getUser(
-        @Parameter(name = "userId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("userId") Long userId
+        @Parameter(name = "userId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("userId") String userId
     ) {
         setExampleResponse("application/json", "null");
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);

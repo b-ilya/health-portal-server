@@ -91,7 +91,7 @@ public interface PatientsApi extends Api {
         value = "/patients/{patientId}"
     )
     default ResponseEntity<Void> deletePatient(
-        @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") Long patientId
+        @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") String patientId
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -128,7 +128,7 @@ public interface PatientsApi extends Api {
         produces = { "application/json" }
     )
     default ResponseEntity<SavedPatientDto> getPatient(
-        @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") Long patientId
+        @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") String patientId
     ) {
         setExampleResponse("application/json", "null");
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -212,7 +212,7 @@ public interface PatientsApi extends Api {
         consumes = { "application/json" }
     )
     default ResponseEntity<SavedPatientDto> updatePatient(
-        @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") Long patientId,
+        @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") String patientId,
         @Parameter(name = "Patient", description = "") @Valid @RequestBody(required = false) PatientDto patient
     ) {
         setExampleResponse("application/json", "null");

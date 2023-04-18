@@ -1,6 +1,10 @@
 package b.illia.healthportal.server.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import b.illia.healthportal.server.api.model.SavedUserDto;
+import b.illia.healthportal.server.data.UserRepository;
+import b.illia.healthportal.server.mapping.UserMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -8,19 +12,23 @@ import org.springframework.web.context.request.NativeWebRequest;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("${openapi.bIlliaHealthPortalOpenAPI30.base-path:}")
 public class UsersApiController implements UsersApi {
 
+    private final UserMapper mapper;
+    private final UserRepository repository;
     private final NativeWebRequest request;
-
-    @Autowired
-    public UsersApiController(NativeWebRequest request) {
-        this.request = request;
-    }
 
     @Override
     public Optional<NativeWebRequest> getRequest() {
         return Optional.ofNullable(request);
     }
 
+    @Override
+    public ResponseEntity<SavedUserDto> getUser(String userId) {
+        return repository.findById(userId)
+                .map(mapper::toDto).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
