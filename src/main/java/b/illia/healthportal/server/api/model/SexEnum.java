@@ -1,4 +1,4 @@
-package b.illia.healthportal.server.model;
+package b.illia.healthportal.server.api.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -9,9 +9,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum SexEnum {
     MALE("male"),
 
-    FEMALE("female");
+    FEMALE("female"),
 
-    private String value;
+    OTHER("other");
+
+    private final String value;
 
     SexEnum(String value) {
         this.value = value;

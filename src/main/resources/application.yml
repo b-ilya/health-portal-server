@@ -1,0 +1,8 @@
+spring.datasource:
+  url: ${project.dbUrl}
+  username: ${project.ext.dbUser}
+  password: ${dbPass}
+spring.jpa:
+  show-sql: true
+  hibernate:
+    ddl-auto: create-drop

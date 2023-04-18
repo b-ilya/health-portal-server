@@ -8,10 +8,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import b.illia.healthportal.server.model.SavedUser;
-import b.illia.healthportal.server.model.User;
+import b.illia.healthportal.server.api.model.SavedUserDto;
+import b.illia.healthportal.server.api.model.UserDto;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +40,7 @@ public interface UsersApi extends Api {
         tags = { "users" },
         responses = {
             @ApiResponse(responseCode = "200", description = "A user successfully added, check email for generated password", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = SavedUser.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = SavedUserDto.class))
             }),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "401", description = "Unauthorized")
@@ -56,8 +55,8 @@ public interface UsersApi extends Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<SavedUser> addUser(
-        @Parameter(name = "User", description = "", required = true) @Valid @RequestBody User user
+    default ResponseEntity<SavedUserDto> addUser(
+        @Parameter(name = "User", description = "", required = true) @Valid @RequestBody UserDto user
     ) {
         setExampleResponse("application/json", "null");
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -80,7 +79,7 @@ public interface UsersApi extends Api {
         tags = { "users" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Success", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = SavedUser.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = SavedUserDto.class))
             }),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
@@ -95,8 +94,8 @@ public interface UsersApi extends Api {
         value = "/users/{userId}",
         produces = { "application/json" }
     )
-    default ResponseEntity<SavedUser> getUser(
-        @Parameter(name = "userId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("userId") Long userId
+    default ResponseEntity<SavedUserDto> getUser(
+        @Parameter(name = "userId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("userId") String userId
     ) {
         setExampleResponse("application/json", "null");
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);

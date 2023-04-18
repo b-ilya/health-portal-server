@@ -1,8 +1,8 @@
 package b.illia.healthportal.server.api;
 
-import b.illia.healthportal.server.model.PatientRecord;
-import b.illia.healthportal.server.model.PatientRecordsList;
-import b.illia.healthportal.server.model.SavedPatientRecord;
+import b.illia.healthportal.server.api.model.PatientRecordDto;
+import b.illia.healthportal.server.api.model.PatientRecordsListDto;
+import b.illia.healthportal.server.api.model.SavedPatientRecordDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -41,7 +41,7 @@ public interface PatientRecordsApi extends Api {
             tags = { "patientRecords" },
             responses = {
                     @ApiResponse(responseCode = "200", description = "A patient record (comment) successfully added", content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = SavedPatientRecord.class))
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = SavedPatientRecordDto.class))
                     }),
                     @ApiResponse(responseCode = "400", description = "Bad Request"),
                     @ApiResponse(responseCode = "401", description = "Unauthorized"),
@@ -57,9 +57,9 @@ public interface PatientRecordsApi extends Api {
             produces = { "application/json" },
             consumes = { "application/json" }
     )
-    default ResponseEntity<SavedPatientRecord> addRecord(
-            @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") Long patientId,
-            @Parameter(name = "PatientRecord", description = "", required = true) @Valid @RequestBody PatientRecord patientRecord
+    default ResponseEntity<SavedPatientRecordDto> addRecord(
+            @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") String patientId,
+            @Parameter(name = "PatientRecord", description = "", required = true) @Valid @RequestBody PatientRecordDto patientRecord
     ) {
         setExampleResponse("application/json", "null");
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -95,8 +95,8 @@ public interface PatientRecordsApi extends Api {
             value = "/patients/{patientId}/records/{recordId}"
     )
     default ResponseEntity<Void> deleteRecord(
-            @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") Long patientId,
-            @Parameter(name = "recordId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("recordId") Long recordId
+            @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") String patientId,
+            @Parameter(name = "recordId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("recordId") String recordId
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -116,7 +116,7 @@ public interface PatientRecordsApi extends Api {
             tags = { "patientRecords" },
             responses = {
                     @ApiResponse(responseCode = "200", description = "Success", content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = PatientRecordsList.class))
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = PatientRecordsListDto.class))
                     })
             },
             security = {
@@ -128,7 +128,7 @@ public interface PatientRecordsApi extends Api {
             value = "/patients/{patientId}/records",
             produces = { "application/json" }
     )
-    default ResponseEntity<PatientRecordsList> listRecords(
+    default ResponseEntity<PatientRecordsListDto> listRecords(
             @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") Long patientId,
             @Parameter(name = "offset", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "offset", required = false) Integer offset,
             @Parameter(name = "limit", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "limit", required = false) Integer limit
@@ -154,7 +154,7 @@ public interface PatientRecordsApi extends Api {
             tags = { "patientRecords" },
             responses = {
                     @ApiResponse(responseCode = "200", description = "An updated patient record (comment) saved", content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = SavedPatientRecord.class))
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = SavedPatientRecordDto.class))
                     }),
                     @ApiResponse(responseCode = "400", description = "Bad Request"),
                     @ApiResponse(responseCode = "401", description = "Unauthorized"),
@@ -169,7 +169,7 @@ public interface PatientRecordsApi extends Api {
             value = "/patients/{patientId}/records/{recordId}",
             produces = { "application/json" }
     )
-    default ResponseEntity<SavedPatientRecord> updateRecord(
+    default ResponseEntity<SavedPatientRecordDto> updateRecord(
             @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") Long patientId,
             @Parameter(name = "recordId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("recordId") Long recordId
     ) {

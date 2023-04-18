@@ -25,5 +25,4 @@ public class HealthPortalServerApplication {
     public Module jsonNullableModule() {
         return new JsonNullableModule();
     }
-
 }

@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "io.freefair.lombok" version "8.0.1"
     id 'org.springframework.boot' version '3.0.5'
     id 'io.spring.dependency-management' version '1.1.0'
 }
@@ -8,13 +9,23 @@ group = 'b.illia'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
+ext {
+    profile = (project.hasProperty("build_version") ? project.findProperty('profile') : 'local')
+    dbUrl = findProperty('healthportalserver.db.url')
+    dbUser = findProperty('healthportalserver.db.user')
+    dbPass = findProperty('healthportalserver.db.password')
+}
+
 repositories {
     mavenCentral()
 }
 
+processResources {
+    expand(project.properties)
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator',
-            'org.springframework.boot:spring-boot-starter-data-jdbc',
             'org.springframework.boot:spring-boot-starter-data-jpa',
             'org.springframework.boot:spring-boot-starter-web',
             'org.springframework.boot:spring-boot-starter-hateoas',
@@ -23,14 +34,15 @@ dependencies {
             'org.springframework.data:spring-data-commons',
             'org.springdoc:springdoc-openapi-ui:1.6.14',
             'org.openapitools:jackson-databind-nullable:0.2.6',
-            'com.fasterxml.jackson.core:jackson-databind'
-
-    compileOnly 'org.projectlombok:lombok'
+            'com.fasterxml.jackson.core:jackson-databind',
+            'org.mapstruct:mapstruct:1.3.1.Final'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client',
-            'com.h2database:h2'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.3.1.Final',
+            'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+    runtimeOnly 'org.postgresql:postgresql:42.6.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test',
             'org.springframework.security:spring-security-test'
@@ -38,4 +50,15 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+String findProperty(String propertyName, String defaultValue) {
+    return findProperty(propertyName) ?: defaultValue;
+}
+
+String findProperty(String propertyName) {
+    if (profile) {
+        return project.findProperty("${profile}.${propertyName}");
+    }
+    return project.findProperty(propertyName);
 }
