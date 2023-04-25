@@ -6,13 +6,13 @@ COPY settings.gradle .
 COPY build.gradle .
 COPY lombok.config .
 COPY src src
-RUN gradle build -x test
+RUN gradle bootJar -x test
 
 
 FROM eclipse-temurin:17-jdk-alpine AS layers
 WORKDIR /app
 COPY --from=build /app/build/libs/*.jar app.jar
-RUN mkdir -p build/libs/dependency && (cd build/libs/dependency; jar -xf ../app.jar)
+RUN mkdir -p build/libs/dependency && (cd build/libs/dependency; jar -xf ../../../app.jar)
 
 FROM eclipse-temurin:17-jdk-alpine
 VOLUME /tmp
