@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ public class UsersApiController implements UsersApi {
     }
 
     @Override
-    public ResponseEntity<SavedUserDto> getUser(String userId) {
+    public ResponseEntity<SavedUserDto> getUser(UUID userId) {
         return repository.findById(userId)
                 .map(mapper::toDto).map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

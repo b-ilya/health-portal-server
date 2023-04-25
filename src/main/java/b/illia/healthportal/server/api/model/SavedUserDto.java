@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 
 /**
@@ -23,7 +25,7 @@ public class SavedUserDto extends UserDto {
     @NotNull
     @Schema(name = "id", requiredMode = REQUIRED)
     @JsonProperty("id")
-    private String id;
+    private UUID id;
 
 }
 

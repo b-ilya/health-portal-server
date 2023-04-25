@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 /**
  * SavedPatient
  */
@@ -20,7 +22,7 @@ public class SavedPatientDto extends PatientDto {
     @NotNull
     @Schema(name = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonProperty("id")
-    private String id;
+    private UUID id;
 
 }
 
