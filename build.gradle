@@ -9,19 +9,16 @@ group = 'b.illia'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
-ext {
-    profile = (project.hasProperty("build_version") ? project.findProperty('profile') : 'local')
-    dbUrl = findProperty('healthportalserver.db.url')
-    dbUser = findProperty('healthportalserver.db.user')
-    dbPass = findProperty('healthportalserver.db.password')
-}
+def healthportalEnv = [
+    'HEALTHPORTALSERVER_DB_HOST',
+    'HEALTHPORTALSERVER_DB_PORT',
+    'HEALTHPORTALSERVER_DB_NAME',
+    'HEALTHPORTALSERVER_DB_USER',
+    'HEALTHPORTALSERVER_DB_PASS'
+]
 
 repositories {
     mavenCentral()
-}
-
-processResources {
-    expand(project.properties)
 }
 
 dependencies {
@@ -52,13 +49,19 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-String findProperty(String propertyName, String defaultValue) {
-    return findProperty(propertyName) ?: defaultValue;
+tasks.named('bootRun') {task ->
+    setEnvironmentFromProfile(task, healthportalEnv)
 }
 
-String findProperty(String propertyName) {
+tasks.named('bootBuildImage') {
+    imageName = 'b.illia/health-portal-server'
+}
+
+def setEnvironmentFromProfile(task, evnVarList) {
+    String profile = project.findProperty('profile')
     if (profile) {
-        return project.findProperty("${profile}.${propertyName}");
+        evnVarList.forEach { envVar ->
+            task.getEnvironment().put(envVar, findProperty("${profile}.${envVar}"))
+        }
     }
-    return project.findProperty(propertyName);
 }
