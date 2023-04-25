@@ -3,8 +3,9 @@ package b.illia.healthportal.server.data;
 import b.illia.healthportal.server.data.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, String> {
+import java.util.Optional;
+import java.util.UUID;
 
-
-
+public interface UserRepository extends JpaRepository<User, UUID> {
+    Optional<User> findByUsername(String username);
 }
