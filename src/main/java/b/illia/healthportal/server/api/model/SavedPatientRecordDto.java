@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.Valid;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 /**
  * SavedPatientRecord
@@ -17,7 +18,7 @@ public class SavedPatientRecordDto {
     @NotNull
     @Schema(name = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonProperty("id")
-    private String id;
+    private UUID id;
 
     @NotNull
     @Schema(name = "author", requiredMode = Schema.RequiredMode.REQUIRED)

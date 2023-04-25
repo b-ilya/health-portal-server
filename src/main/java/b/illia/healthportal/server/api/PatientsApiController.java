@@ -1,27 +1,20 @@
 package b.illia.healthportal.server.api;
 
-import b.illia.healthportal.server.api.model.AddressDto;
 import b.illia.healthportal.server.api.model.PatientDto;
 import b.illia.healthportal.server.api.model.PatientsListDto;
 import b.illia.healthportal.server.api.model.SavedPatientDto;
-import b.illia.healthportal.server.api.model.SexEnum;
-import b.illia.healthportal.server.data.UserRepository;
 import b.illia.healthportal.server.data.model.Patient;
-import b.illia.healthportal.server.data.model.PatientRepository;
+import b.illia.healthportal.server.data.PatientRepository;
 import b.illia.healthportal.server.mapping.PatientMapper;
-import b.illia.healthportal.server.mapping.UserMapper;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("${openapi.bIlliaHealthPortalOpenAPI30.base-path:}")
@@ -53,7 +46,7 @@ public class PatientsApiController implements PatientsApi {
     }
 
     @Override
-    public ResponseEntity<SavedPatientDto> getPatient(String patientId) {
+    public ResponseEntity<SavedPatientDto> getPatient(UUID patientId) {
         return repository.findById(patientId)
                 .map(mapper::toDto).map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

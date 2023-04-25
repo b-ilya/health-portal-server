@@ -13,6 +13,7 @@ import b.illia.healthportal.server.api.model.PatientsListDto;
 import b.illia.healthportal.server.api.model.SavedPatientDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
+
+import java.util.UUID;
 
 @Validated
 @Tag(name = "patients", description = "the patients API")
@@ -55,6 +58,7 @@ public interface PatientsApi extends Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
+    @PreAuthorize("hasRole('ROLE_USER')")
     default ResponseEntity<SavedPatientDto> addPatient(
         @Parameter(name = "Patient", description = "", required = true) @Valid @RequestBody PatientDto patient
     ) {
@@ -90,8 +94,9 @@ public interface PatientsApi extends Api {
         method = RequestMethod.DELETE,
         value = "/patients/{patientId}"
     )
+    @PreAuthorize("hasRole('ROLE_USER')")
     default ResponseEntity<Void> deletePatient(
-        @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") String patientId
+        @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") UUID patientId
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -127,14 +132,14 @@ public interface PatientsApi extends Api {
         value = "/patients/{patientId}",
         produces = { "application/json" }
     )
+    @PreAuthorize("hasRole('ROLE_USER')")
     default ResponseEntity<SavedPatientDto> getPatient(
-        @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") String patientId
+        @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") UUID patientId
     ) {
         setExampleResponse("application/json", "null");
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
-
 
     /**
      * GET /patients : Get list of patients
@@ -166,6 +171,7 @@ public interface PatientsApi extends Api {
         value = "/patients",
         produces = { "application/json" }
     )
+    @PreAuthorize("hasRole('ROLE_USER')")
     default ResponseEntity<PatientsListDto> listPatients(
         @Parameter(name = "offset", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "offset", required = false) Integer offset,
         @Parameter(name = "limit", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "limit", required = false) Integer limit,
@@ -175,9 +181,6 @@ public interface PatientsApi extends Api {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
-
-
-
 
     /**
      * PUT /patients/{patientId} : Save changes to a Patient
@@ -211,8 +214,9 @@ public interface PatientsApi extends Api {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
+    @PreAuthorize("hasRole('ROLE_USER')")
     default ResponseEntity<SavedPatientDto> updatePatient(
-        @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") String patientId,
+        @Parameter(name = "patientId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("patientId") UUID patientId,
         @Parameter(name = "Patient", description = "") @Valid @RequestBody(required = false) PatientDto patient
     ) {
         setExampleResponse("application/json", "null");

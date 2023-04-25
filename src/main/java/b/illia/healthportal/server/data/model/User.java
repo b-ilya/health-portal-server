@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
@@ -21,12 +23,11 @@ public class User {
     @Id
     @Column(
             name = "id",
-            length = 36,
             nullable = false,
             updatable = false
     )
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue
+    private UUID id;
 
     @Column(
             name = "username",

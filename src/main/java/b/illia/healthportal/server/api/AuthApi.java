@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 
+import java.util.UUID;
+
 @Validated
 @Tag(name = "auth", description = "the auth API")
 public interface AuthApi {
@@ -48,7 +50,7 @@ public interface AuthApi {
         value = "/auth/token",
         produces = { "application/json" }
     )
-    default ResponseEntity<String> authenticate(
+    default ResponseEntity<UUID> authenticate(
         @NotNull @Parameter(name = "username", description = "The user name for login", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "username", required = true) String username,
         @NotNull @Parameter(name = "password", description = "hash of the password", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "password", required = true) String password
     ) {

@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "patients")
@@ -21,8 +22,8 @@ import java.time.LocalDate;
 @Setter
 public class Patient {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue
+    private UUID id;
 
     @Column(name = "first_name")
     private String firstName;

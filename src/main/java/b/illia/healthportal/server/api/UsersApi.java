@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.validation.Valid;
 
+import java.util.UUID;
+
 @Validated
 @Tag(name = "users", description = "the users API")
 public interface UsersApi extends Api {
@@ -95,7 +97,7 @@ public interface UsersApi extends Api {
         produces = { "application/json" }
     )
     default ResponseEntity<SavedUserDto> getUser(
-        @Parameter(name = "userId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("userId") String userId
+        @Parameter(name = "userId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("userId") UUID userId
     ) {
         setExampleResponse("application/json", "null");
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);

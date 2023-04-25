@@ -1,5 +1,6 @@
 package b.illia.healthportal.server.data.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "places")
 @NoArgsConstructor
@@ -18,8 +21,8 @@ import lombok.Setter;
 public class Place {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue
+    private UUID id;
 
     private String city;
 
@@ -27,5 +30,8 @@ public class Place {
 
     private String country;
 
+    @Column(
+            name = "zipcode"
+    )
     private String zip;
 }
