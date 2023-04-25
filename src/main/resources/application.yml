@@ -1,8 +1,8 @@
 spring.datasource:
-  url: ${project.dbUrl}
-  username: ${project.ext.dbUser}
-  password: ${dbPass}
+    url: jdbc:postgresql://${HEALTHPORTALSERVER_DB_HOST:localhost}:${HEALTHPORTALSERVER_DB_PORT:5432}/${HEALTHPORTALSERVER_DB_NAME:health-portal-local}
+    username: ${HEALTHPORTALSERVER_DB_USER:postgres}
+    password: ${HEALTHPORTALSERVER_DB_PASS}
 spring.jpa:
   show-sql: true
   hibernate:
-    ddl-auto: create-drop
+    ddl-auto: validate
